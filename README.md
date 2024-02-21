@@ -13,8 +13,8 @@ Pre-built binaries are available [here](https://github.com/lastbyte32/wg-fake/re
 Run in the source directory:
 
 ```bash
-git clone https://github.com/lastbyte32/wg-fake.git
-make
+$ git clone https://github.com/lastbyte32/wg-fake.git
+$ make
 ```
 
 Binary will be available in the `build` directory.
