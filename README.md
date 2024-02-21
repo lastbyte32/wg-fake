@@ -1,6 +1,8 @@
 # wg-fake
 
-Fake handshake for WireGuard. Allows for some initial exchange between a WireGuard server and client in order to circumvent DPI filtering.
+Fake handshake for WireGuard.
+Allows to bypass DPI blocking of the WireGuard protocol by sending a "magic" packet.
+
 
 ### Binaries
 
