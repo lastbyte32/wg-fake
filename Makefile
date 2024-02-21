@@ -84,7 +84,7 @@ run:
 install:
 	$(GO) install $(LDFLAGS_NATIVE) $(MAIN_PACKAGE)
 
-.PHONY: clean all native fmt install \
+.PHONY: clean all native install \
 	bin-native \
 	bin-linux-amd64 \
 	bin-linux-386 \
