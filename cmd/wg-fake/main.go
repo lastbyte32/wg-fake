@@ -4,16 +4,14 @@ import (
 	"context"
 	"flag"
 	"fmt"
-	"net"
 	"os"
-	"time"
+
+	"random-udp-sender/internal/app"
 )
 
 const (
-	appName           = "wg-fake"
-	version           = "undefined"
-	defaultTimeout    = time.Second * 5
-	defaultNumPackets = 2
+	appName = "wg-fake"
+	version = "undefined"
 )
 
 func usage() string {
@@ -36,40 +34,9 @@ func main() {
 
 	fmt.Printf("%s: %s\nprobing %s from local port %d\n", appName, version, *serverAddr, *localPort)
 
-	conn, err := makeConnection(context.TODO(), *serverAddr, *localPort)
-	if err != nil {
+	if err := app.Run(context.Background(), *serverAddr, *localPort); err != nil {
 		fmt.Fprint(os.Stderr, err)
 		os.Exit(1)
 	}
-	defer conn.Close()
-
-	if err := sendRandomData(conn); err != nil {
-		fmt.Fprint(os.Stderr, err)
-	}
 	fmt.Println("done...")
-}
-
-func makeConnection(ctx context.Context, serverAddr string, localPort uint) (net.Conn, error) {
-	dialer := &net.Dialer{
-		LocalAddr: &net.UDPAddr{
-			Port: int(localPort),
-		},
-		Timeout: defaultTimeout,
-	}
-	conn, err := dialer.DialContext(ctx, "udp", serverAddr)
-	if err != nil {
-		return nil, fmt.Errorf("make connection failed: %w", err)
-	}
-	return conn, nil
-}
-
-func sendRandomData(conn net.Conn) error {
-	packet := make([]byte, 16)
-	for i := 0; i < defaultNumPackets; i++ {
-		if _, err := conn.Write(packet); err != nil {
-			return fmt.Errorf("failed to send data: %w", err)
-		}
-		fmt.Printf("packet %d of %d successfully sent\n", i+1, defaultNumPackets)
-	}
-	return nil
 }
