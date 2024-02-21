@@ -10,9 +10,10 @@ import (
 )
 
 const (
-	appName        = "wg-fake"
-	version        = "undefined"
-	defaultTimeout = time.Second * 5
+	appName           = "wg-fake"
+	version           = "undefined"
+	defaultTimeout    = time.Second * 5
+	defaultNumPackets = 2
 )
 
 func usage() string {
@@ -63,13 +64,12 @@ func makeConnection(ctx context.Context, serverAddr string, localPort uint) (net
 }
 
 func sendRandomData(conn net.Conn) error {
-	numPackets := 5
 	packet := make([]byte, 16)
-	for i := 0; i < numPackets; i++ {
+	for i := 0; i < defaultNumPackets; i++ {
 		if _, err := conn.Write(packet); err != nil {
 			return fmt.Errorf("failed to send data: %w", err)
 		}
-		fmt.Printf("packet %d of %d successfully sent\n", i+1, numPackets)
+		fmt.Printf("packet %d of %d successfully sent\n", i+1, defaultNumPackets)
 	}
 	return nil
 }
