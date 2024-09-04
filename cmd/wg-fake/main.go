@@ -11,7 +11,7 @@ import (
 
 const (
 	appName = "wg-fake"
-	version = "undefined"
+	version = "0.0.1"
 )
 
 func usage() string {
@@ -32,7 +32,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	fmt.Printf("%s: %s\nprobing %s from local port %d\n", appName, version, *serverAddr, *localPort)
+	fmt.Printf("%s: v%s\nprobing %s from local port %d\n", appName, version, *serverAddr, *localPort)
 
 	if err := app.Run(context.Background(), *serverAddr, *localPort); err != nil {
 		fmt.Fprint(os.Stderr, err)
