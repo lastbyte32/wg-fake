@@ -31,4 +31,3 @@ $ ./wg-fake -s <WG SERVER ADDRESS:PORT> -p <LOCAL WG PORT>
 ```
 After successful result, you can use WireGuard client to connect to the server.
 > If you use wg-quick it may be convenient to add wg-fake invocation as a PreUp command in your client config.
-
